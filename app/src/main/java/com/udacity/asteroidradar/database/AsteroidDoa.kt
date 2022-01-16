@@ -11,11 +11,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AsteroidDoa {
  @Query("select * from databaseEntities")
- fun getAllAsteroids():LiveData<List<DatabaseEntities>>
+ fun getAllAsteroids():Flow<List<Asteroid>>
  @Insert(onConflict=OnConflictStrategy.REPLACE)
  fun insertAll(vararg databaseEntities: DatabaseEntities)
  @Query("DELETE FROM databaseEntities WHERE closeApproachDate < :today")
  fun deletePreviousDayAsteroids(today: String): Int
  @Query("SELECT * FROM databaseEntities WHERE closeApproachDate >= :startDate AND closeApproachDate <= :endDate ORDER BY closeApproachDate ASC")
- fun filterByDate(startDate: String, endDate: String): LiveData<List<DatabaseEntities>>
+ fun filterByDate(startDate: String, endDate: String): Flow<List<Asteroid>>
 }
